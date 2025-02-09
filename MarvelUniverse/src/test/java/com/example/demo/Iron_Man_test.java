@@ -30,6 +30,10 @@ public class Iron_Man_test {
     void testCaseInsensitiveInput() {
         assertEquals("invalid", Iron_Man.determineWinner("thor", "iron man")); // Method is case-sensitive
     }
+    @Test
+    void testCaseInsensitiveInput1() {
+        assertEquals("invali", Iron_Man.determineWinner("Thor", "Iron man")); // Method is case-sensitive
+    }
 
     @Test
     void testWhitespaceInput() {
