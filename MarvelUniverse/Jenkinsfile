@@ -3,7 +3,7 @@ pipeline {
 
     tools {
         maven 'Maven'  // Ensure Maven is installed in Jenkins
-        jdk 'JDK17'    // Use JDK 17 instead of JDK 11
+        jdk 'JDK17'    // Use JDK 17
     }
 
     stages {
@@ -15,26 +15,32 @@ pipeline {
 
         stage('Build with Maven') {
             steps {
-                sh 'mvn clean package'
+                dir('MarvelUniverse') {  // Change to the directory where the pom.xml is located
+                    sh 'mvn clean package'
+                }
             }
         }
 
         stage('Run Unit Tests with JUnit') {
             steps {
-                sh 'mvn test'
+                dir('MarvelUniverse') {  // Change to the directory where the pom.xml is located
+                    sh 'mvn test'
+                }
             }
         }
 
         stage('Code Coverage with JaCoCo') {
             steps {
-                sh 'mvn jacoco:prepare-agent test jacoco:report'
+                dir('MarvelUniverse') {  // Change to the directory where the pom.xml is located
+                    sh 'mvn jacoco:prepare-agent test jacoco:report'
+                }
             }
         }
 
         stage('Archive Test Results & Coverage Report') {
             steps {
                 junit '**/target/surefire-reports/*.xml'  // Archive JUnit test results
-                archiveArtifacts artifacts: 'target/site/jacoco/*.html', fingerprint: true  // Archive JaCoCo reports
+                archiveArtifacts artifacts: 'MarvelUniverse/target/site/jacoco/*.html', fingerprint: true  // Archive JaCoCo reports
             }
         }
     }
