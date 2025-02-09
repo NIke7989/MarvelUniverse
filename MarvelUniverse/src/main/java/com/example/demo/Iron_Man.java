@@ -20,6 +20,7 @@ public class Iron_Man {
 	        powerLevels.put("Scarlet Witch", 97);
 	        powerLevels.put("Thanos", 99);
 	        powerLevels.put("Hawkeye", 20);
+	        powerLevels.put("Red Skull", 25);
 	    }
 
 	    public static String determineWinner(String hero1, String hero2) {
