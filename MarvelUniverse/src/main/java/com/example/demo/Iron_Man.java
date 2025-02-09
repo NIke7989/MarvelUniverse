@@ -40,7 +40,7 @@ public class Iron_Man {
 	        } else if (power2 > power1) {
 	            return hero2 ;
 	        } else {
-	            return "tie"
+	            return "tie";
 	        }
 	    }
 
