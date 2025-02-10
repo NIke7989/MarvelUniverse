@@ -1,13 +1,11 @@
-# Use an official Maven image to build the project1
-FROM maven:latest AS build
+# Use Maven to build the project
+FROM maven:3.8.6-openjdk-17-slim AS build
 
-# Set the working directory
+# Set the working directory for the build process
 WORKDIR /app
 
-# Copy the pom.xml and dependencies for the Maven build
+# Copy the pom.xml and download dependencies
 COPY pom.xml .
-
-# Download the project dependencies (this is an optimization to avoid downloading dependencies each time)
 RUN mvn dependency:go-offline
 
 # Copy the source code into the container
@@ -16,17 +14,17 @@ COPY src ./src
 # Build the project and package the application
 RUN mvn clean package -DskipTests
 
-# Use a smaller JDK base image to run the application
+# Use a smaller JDK base image for the runtime environment
 FROM openjdk:17-slim
 
 # Set the working directory in the second image
 WORKDIR /app
 
-# Copy the packaged .jar file from the build stage to the runtime image
+# Copy the built .jar file from the build stage to the runtime image
 COPY --from=build /app/target/MarvelUniverse-*.jar app.jar
 
-# Expose the port that your application will run on
+# Expose the application port
 EXPOSE 8080
 
-# Set the entrypoint to run the Java application
+# Define the command to run the application
 ENTRYPOINT ["java", "-jar", "app.jar"]
