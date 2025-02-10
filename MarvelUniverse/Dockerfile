@@ -1,5 +1,5 @@
 # Use an official Maven image to build the project
-FROM maven:3.8.6-openjdk-17-slim AS build
+FROM maven:latest AS build
 
 # Set the working directory
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pom.xml .
 
 # Download the project dependencies
-RUN mvn dependency:go-offline
+
 
 # Copy the source code into the container
 COPY src ./src
