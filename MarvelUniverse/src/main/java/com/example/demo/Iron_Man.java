@@ -26,6 +26,9 @@ public class Iron_Man {
 	        powerLevels.put("Hawkeye", 20);
 	        powerLevels.put("Red Skull", 50);
 	        powerLevels.put("Winter Solider", 60);
+	        powerLevels.put("Hawkeye", 20);
+	        powerLevels.put("Red Skull", 50);
+	        powerLevels.put("Winter Solider", 60);
 	    }
 
 	    public static String determineWinner(String hero1, String hero2) {
