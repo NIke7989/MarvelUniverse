@@ -7,8 +7,8 @@ WORKDIR /app
 # Copy the pom.xml and dependencies for the Maven build
 COPY pom.xml .
 
-# Download the project dependencies
-
+# Download the project dependencies (this is an optimization to avoid downloading dependencies each time)
+RUN mvn dependency:go-offline
 
 # Copy the source code into the container
 COPY src ./src
