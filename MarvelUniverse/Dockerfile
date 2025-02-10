@@ -8,13 +8,13 @@ WORKDIR /app
 COPY pom.xml .
 
 # Download the project dependencies (this is an optimization to avoid downloading dependencies each time)
-RUN mvn dependency
+RUN mvn dependency:go-offline
 
 # Copy the source code into the container
 COPY src ./src
 
 # Build the project and package the application
-RUN mvn clean package
+RUN mvn clean package -DskipTests
 
 # Use a smaller JDK base image to run the application
 FROM openjdk:17-slim
