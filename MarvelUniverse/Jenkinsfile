@@ -41,6 +41,7 @@ pipeline {
             steps {
                 junit '**/target/surefire-reports/*.xml'  // Archive JUnit test results
                 archiveArtifacts artifacts: 'MarvelUniverse/target/site/jacoco/*.html', fingerprint: true  // Archive JaCoCo reports
+                archiveArtifacts artifacts: '**/target/*.jar', allowEmptyArchive: true  // Archive packaged .jar files
             }
         }
 
@@ -57,7 +58,8 @@ pipeline {
                     sh 'docker build -t marvel-universe-image ./MarvelUniverse'
 
                     // Optionally, you can push the image to Docker Hub or any repository:
-                    // sh 'docker push yourusername/marvel-universe-image'
+                    sh 'docker tag marvel-universe-image yourusername/marvel-universe-image'
+                    sh 'docker push yourusername/marvel-universe-image'
                 }
             }
         }
