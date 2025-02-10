@@ -43,6 +43,24 @@ pipeline {
                 archiveArtifacts artifacts: 'MarvelUniverse/target/site/jacoco/*.html', fingerprint: true  // Archive JaCoCo reports
             }
         }
+
+        // Dockerizing Stage (running on Slave-2)
+        stage('Dockerize and Build Image') {
+            agent { label 'slave-2' }  // Run this stage on Slave-2
+
+            steps {
+                script {
+                    // Ensure Docker is installed on Slave-2
+                    sh 'docker --version'  // This will ensure Docker is installed on Slave-2
+
+                    // Build Docker image
+                    sh 'docker build -t marvel-universe-image ./MarvelUniverse'
+
+                    // Optionally, you can push the image to Docker Hub or any repository:
+                    // sh 'docker push yourusername/marvel-universe-image'
+                }
+            }
+        }
     }
 
     post {
