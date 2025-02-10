@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+    
+    }
 
     tools {
         maven 'Maven'  // Ensure Maven is installed in Jenkins
